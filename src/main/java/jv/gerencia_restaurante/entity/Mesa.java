@@ -1,6 +1,7 @@
 package jv.gerencia_restaurante.entity;
 
 import jakarta.persistence.*;
+import jv.gerencia_restaurante.dto.MesaRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,4 +29,18 @@ public class Mesa {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH, mappedBy = "mesa")
     private List<Reserva> reservas;
+
+    public Mesa(MesaRequestDTO mesa, Restaurante restaurante) {
+        this.capacidadePessoas = mesa.capacidadePessoas();
+        this.restaurante = restaurante;
+    }
+
+    public void alteraDados(MesaRequestDTO mesa, Restaurante restaurante) {
+        if (mesa.capacidadePessoas() != null) {
+            this.capacidadePessoas = mesa.capacidadePessoas();
+        }
+        if (restaurante != null) {
+            this.restaurante = restaurante;
+        }
+    }
 }

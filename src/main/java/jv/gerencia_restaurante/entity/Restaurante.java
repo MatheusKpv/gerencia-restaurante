@@ -1,6 +1,7 @@
 package jv.gerencia_restaurante.entity;
 
 import jakarta.persistence.*;
+import jv.gerencia_restaurante.dto.RestauranteRequestDTO;
 import jv.gerencia_restaurante.enuns.TipoComidaEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,4 +39,26 @@ public class Restaurante {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH, mappedBy = "restaurante")
     private List<Mesa> mesas;
+
+    public Restaurante(RestauranteRequestDTO restaurante) {
+        this.nome = restaurante.nome();
+        this.cnpj = restaurante.cnpj();
+        this.estrelas = restaurante.estrelas();
+        this.tipoComida = restaurante.tipoComida();
+    }
+
+    public void alteraDados(RestauranteRequestDTO restaurante) {
+        if (restaurante.nome() != null) {
+            this.nome = restaurante.nome();
+        }
+        if (restaurante.cnpj() != null) {
+            this.cnpj = restaurante.cnpj();
+        }
+        if (restaurante.estrelas() != null) {
+            this.estrelas = restaurante.estrelas();
+        }
+        if (restaurante.tipoComida() != null) {
+            this.tipoComida = restaurante.tipoComida();
+        }
+    }
 }
