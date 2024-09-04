@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
+@NoArgsConstructor
 @Entity(name = "funcionario")
 public class Funcionario extends Pessoa {
     @Id

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,15 @@ public class MesaController {
             return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
         }
     }
+
+//    @GetMapping("disponiveis")
+//    public ResponseEntity<?> getMesasDisponiveis(@RequestParam LocalDate data, @RequestParam Integer qtdPessoas) {
+//        try {
+//            List<Mes>
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
+//        }
+//    }
 
     @PostMapping
     public ResponseEntity<?> cadastraMesa(@RequestBody MesaRequestDTO mesaRequestDTO) {

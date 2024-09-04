@@ -42,7 +42,7 @@ public class Restaurante {
 
     public Restaurante(RestauranteRequestDTO restaurante) {
         this.nome = restaurante.nome();
-        this.cnpj = restaurante.cnpj();
+        this.cnpj = formataCNPJ(restaurante.cnpj());
         this.estrelas = restaurante.estrelas();
         this.tipoComida = restaurante.tipoComida();
     }
@@ -52,7 +52,7 @@ public class Restaurante {
             this.nome = restaurante.nome();
         }
         if (restaurante.cnpj() != null) {
-            this.cnpj = restaurante.cnpj();
+            this.cnpj = formataCNPJ(restaurante.cnpj());
         }
         if (restaurante.estrelas() != null) {
             this.estrelas = restaurante.estrelas();
@@ -60,5 +60,9 @@ public class Restaurante {
         if (restaurante.tipoComida() != null) {
             this.tipoComida = restaurante.tipoComida();
         }
+    }
+
+    private String formataCNPJ(String cnpj) {
+        return cnpj.replaceAll("[^a-zA-Z0-9]", "");
     }
 }

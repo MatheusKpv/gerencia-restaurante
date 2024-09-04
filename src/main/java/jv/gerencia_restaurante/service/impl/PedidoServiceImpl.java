@@ -29,6 +29,7 @@ public class PedidoServiceImpl implements PedidoService {
     public PedidoResponseDTO cadastraPedido(PedidoRequestDTO pedidoRequestDTO) {
         Reserva reserva = reservaService.findById(pedidoRequestDTO.idReserva());
         Pedido pedido = new Pedido(pedidoRequestDTO, reserva);
+        pedidoRepository.save(pedido);
         return new PedidoResponseDTO(pedido);
     }
 

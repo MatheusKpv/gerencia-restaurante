@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Getter
+@NoArgsConstructor
 @MappedSuperclass
 public abstract class Pessoa {
     @Column(nullable = false)
@@ -34,7 +35,7 @@ public abstract class Pessoa {
                   String telefone, Restaurante restaurante) {
         this.nome = nome;
         this.sobrenome = sobrenome;
-        this.cpf = cpf;
+        this.cpf = formataCPF(cpf);
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
         this.telefone = telefone;
@@ -50,7 +51,7 @@ public abstract class Pessoa {
             this.sobrenome = sobrenome;
         }
         if (cpf != null) {
-            this.cpf = cpf;
+            this.cpf = formataCPF(cpf);
         }
         if (dataNascimento != null) {
             this.dataNascimento = dataNascimento;
@@ -64,5 +65,9 @@ public abstract class Pessoa {
         if (restaurante != null) {
             this.restaurante = restaurante;
         }
+    }
+
+    private String formataCPF(String cpf) {
+        return cpf.replaceAll("[^0-9]", "");
     }
 }

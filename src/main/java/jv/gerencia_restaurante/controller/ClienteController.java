@@ -45,4 +45,14 @@ public class ClienteController {
             return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
         }
     }
+
+    @PutMapping("/desbloqueio/{id}")
+    public ResponseEntity<?> desbloqueioCliente(@PathVariable Long id) {
+        try {
+            clienteService.desbloqueioCliente(id);
+            return ResponseEntity.ok(new MessageErrorDTO("Cliente desbloqueado"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
+        }
+    }
 }

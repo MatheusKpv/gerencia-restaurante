@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class Cliente extends Pessoa{
     @Column(name = "quantidade_reservas")
     private Integer quantidadeReservas;
 
+    private BigDecimal quantidadeValorGasto;
+
+    private Boolean flgBloqueado;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH, mappedBy = "cliente")
     private List<Reserva> reservas;
 
@@ -31,6 +36,8 @@ public class Cliente extends Pessoa{
                 cliente.sexo(), cliente.telefone(), restaurante);
         this.dataCadastro = cliente.dataCadastro();
         this.quantidadeReservas = cliente.quantidadeReservas();
+        this.quantidadeValorGasto = BigDecimal.ZERO;
+        this.flgBloqueado = false;
     }
 
     public void alteraDados(ClienteRequestDTO cliente, Restaurante restaurante) {
@@ -42,5 +49,12 @@ public class Cliente extends Pessoa{
         if (cliente.quantidadeReservas() != null) {
             this.quantidadeReservas = cliente.quantidadeReservas();
         }
+        if (cliente.quantidadeValorGasto() != null) {
+            this.quantidadeValorGasto = cliente.quantidadeValorGasto();
+        }
+    }
+
+    public void desbloqueia() {
+        this.flgBloqueado = false;
     }
 }

@@ -2,6 +2,7 @@ package jv.gerencia_restaurante.dto;
 
 import jv.gerencia_restaurante.enuns.SexoEnum;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record ClienteRequestDTO(
@@ -13,5 +14,7 @@ public record ClienteRequestDTO(
         String telefone,
         Long idRestaurante,
         LocalDate dataCadastro,
-        Integer quantidadeReservas) {
+        Integer quantidadeReservas,
+        BigDecimal quantidadeValorGasto
+) {
 }

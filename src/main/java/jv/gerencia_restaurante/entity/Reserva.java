@@ -77,4 +77,8 @@ public class Reserva {
             this.observacao = reservaRequestDTO.observacao();
         }
     }
+
+    public void setStatus(StatusEnum statusEnum) {
+        this.status = statusEnum;
+    }
 }

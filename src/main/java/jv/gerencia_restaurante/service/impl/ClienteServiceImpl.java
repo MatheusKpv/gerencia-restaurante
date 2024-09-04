@@ -7,9 +7,12 @@ import jv.gerencia_restaurante.entity.Restaurante;
 import jv.gerencia_restaurante.repository.ClienteRepository;
 import jv.gerencia_restaurante.service.ClienteService;
 import jv.gerencia_restaurante.service.RestauranteService;
+import jv.gerencia_restaurante.validation.ValidationPessoa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -27,10 +30,19 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteResponseDTO cadastraCliente(ClienteRequestDTO clienteRequestDTO) {
+        validaDataNascimento(clienteRequestDTO.dataNascimento());
+        ValidationPessoa.validaCPF(clienteRequestDTO.cpf());
         Restaurante restaurante = restauranteService.findById(clienteRequestDTO.idRestaurante());
         Cliente cliente = new Cliente(clienteRequestDTO, restaurante);
         clienteRepository.save(cliente);
         return new ClienteResponseDTO(cliente);
+    }
+
+    private void validaDataNascimento(LocalDate dataNascimento) {
+        Integer idade = Period.between(dataNascimento, LocalDate.now()).getYears();
+        if (idade < 12 || idade > 100) {
+            throw new RuntimeException("idade deve ser entre 12 a 100 anos");
+        }
     }
 
     @Override
@@ -40,6 +52,9 @@ public class ClienteServiceImpl implements ClienteService {
         if (clienteRequestDTO.idRestaurante() != null) {
             restaurante = restauranteService.findById(clienteRequestDTO.idRestaurante());
         }
+        if (clienteRequestDTO.cpf() != null) {
+            ValidationPessoa.validaCPF(clienteRequestDTO.cpf());
+        }
         cliente.alteraDados(clienteRequestDTO, restaurante);
         clienteRepository.save(cliente);
         return new ClienteResponseDTO(cliente);
@@ -48,5 +63,14 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Cliente findById(Long id) {
         return clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Id do cliente não encontrado"));
+    }
+
+    @Override
+    public void desbloqueioCliente(Long id) {
+        Cliente cliente = findById(id);
+        if (!cliente.getFlgBloqueado()) {
+            throw new RuntimeException("cliente não está bloqueado");
+        }
+        cliente.desbloqueia();
     }
 }

@@ -14,4 +14,6 @@ public interface ClienteService {
     ClienteResponseDTO alteraCliente(Long id, ClienteRequestDTO clienteRequestDTO);
 
     Cliente findById(Long id);
+
+    void desbloqueioCliente(Long id);
 }
