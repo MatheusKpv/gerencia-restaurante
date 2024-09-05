@@ -26,6 +26,16 @@ public class ClienteController {
         }
     }
 
+    @GetMapping("/maior-valor-gasto")
+    public ResponseEntity<?> getClienteMaiorgasto() {
+        try {
+            ClienteResponseDTO cliente = clienteService.getClienteMaiorgasto();
+            return ResponseEntity.ok(cliente);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> cadastraCliente(@RequestBody ClienteRequestDTO clienteRequestDTO) {
         try {

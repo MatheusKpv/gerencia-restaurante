@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -22,6 +23,16 @@ public class ReservaController {
         try {
             List<ReservaResponseDTO> reservas = reservaService.getListaReservas();
             return ResponseEntity.ok(reservas);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/valor-total/{id}")
+    public ResponseEntity<?> getValorTotalReserva(@PathVariable Long id) {
+        try {
+            BigDecimal valorTotal = reservaService.getValorTotalReserva(id);
+            return ResponseEntity.ok(valorTotal);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
         }

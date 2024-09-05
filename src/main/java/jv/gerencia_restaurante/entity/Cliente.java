@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 @Entity(name = "cliente")
 public class Cliente extends Pessoa{
     @Id

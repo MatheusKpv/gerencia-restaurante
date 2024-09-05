@@ -30,7 +30,8 @@ public class Mesa {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH, mappedBy = "mesa")
     private List<Reserva> reservas;
 
-    public Mesa(MesaRequestDTO mesa, Restaurante restaurante) {
+    public Mesa(MesaRequestDTO mesa, Restaurante restaurante, Integer numeroMesa) {
+        this.numero = numeroMesa;
         this.capacidadePessoas = mesa.capacidadePessoas();
         this.restaurante = restaurante;
     }

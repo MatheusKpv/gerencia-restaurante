@@ -5,6 +5,7 @@ import jv.gerencia_restaurante.dto.ReservaResponseDTO;
 import jv.gerencia_restaurante.entity.Reserva;
 import jv.gerencia_restaurante.enuns.StatusEnum;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ReservaService {
@@ -19,4 +20,6 @@ public interface ReservaService {
     ReservaResponseDTO alteraStatus(Long id, StatusEnum statusEnum);
 
     List<ReservaResponseDTO> getReservaPorObservacao(String obs);
+
+    BigDecimal getValorTotalReserva(Long id);
 }

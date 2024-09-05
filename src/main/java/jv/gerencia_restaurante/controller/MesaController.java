@@ -27,14 +27,15 @@ public class MesaController {
         }
     }
 
-//    @GetMapping("disponiveis")
-//    public ResponseEntity<?> getMesasDisponiveis(@RequestParam LocalDate data, @RequestParam Integer qtdPessoas) {
-//        try {
-//            List<Mes>
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
-//        }
-//    }
+    @GetMapping("disponiveis")
+    public ResponseEntity<?> getMesasDisponiveis(@RequestParam Long idRestaurante, @RequestParam LocalDate data, @RequestParam Integer qtdPessoas) {
+        try {
+            List<MesaResponseDTO> mesas = mesaService.getMesasDisponiveis(idRestaurante, data, qtdPessoas);
+            return ResponseEntity.ok(mesas);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
+        }
+    }
 
     @PostMapping
     public ResponseEntity<?> cadastraMesa(@RequestBody MesaRequestDTO mesaRequestDTO) {

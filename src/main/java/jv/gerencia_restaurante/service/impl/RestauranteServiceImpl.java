@@ -1,5 +1,7 @@
 package jv.gerencia_restaurante.service.impl;
 
+import jv.gerencia_restaurante.dto.MaiorFaturamentoMesReponseDTO;
+import jv.gerencia_restaurante.dto.MaiorFaturamentoMesRequestDTO;
 import jv.gerencia_restaurante.dto.RestauranteRequestDTO;
 import jv.gerencia_restaurante.dto.RestauranteResponseDTO;
 import jv.gerencia_restaurante.entity.Restaurante;
@@ -8,6 +10,8 @@ import jv.gerencia_restaurante.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -60,5 +64,17 @@ public class RestauranteServiceImpl implements RestauranteService {
     @Override
     public Restaurante findById(Long id) {
         return restauranteRepository.findById(id).orElseThrow(() -> new RuntimeException("Id do restaurante não encontrado"));
+    }
+
+    @Override
+    public BigDecimal getFaturamentoPorDia(Long id, LocalDate data) {
+        return restauranteRepository.findFaturamentoPorDia(id, data);
+    }
+
+    @Override
+    public MaiorFaturamentoMesReponseDTO getDiaMaiorFaturamentoMes(Long id, Integer mes) {
+        List<MaiorFaturamentoMesRequestDTO> maiorFaturamentoMesRequestDTOList = restauranteRepository.findDatasMaiorFaturamentoMes(id, mes);
+        return new MaiorFaturamentoMesReponseDTO(maiorFaturamentoMesRequestDTOList.stream()
+                .findFirst().orElseThrow(() -> new RuntimeException("Nenhum pedido registrado nessa data")));
     }
 }

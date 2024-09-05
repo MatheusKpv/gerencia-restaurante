@@ -16,4 +16,6 @@ public interface ClienteService {
     Cliente findById(Long id);
 
     void desbloqueioCliente(Long id);
+
+    ClienteResponseDTO getClienteMaiorgasto();
 }

@@ -73,4 +73,10 @@ public class ClienteServiceImpl implements ClienteService {
         }
         cliente.desbloqueia();
     }
+
+    @Override
+    public ClienteResponseDTO getClienteMaiorgasto() {
+        List<Cliente> clientes = clienteRepository.findClientesMaiorGasto();
+        return new ClienteResponseDTO(clientes.stream().findFirst().orElseThrow(() -> new RuntimeException("Nenhum cliente encontrado")));
+    }
 }

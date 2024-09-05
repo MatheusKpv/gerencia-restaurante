@@ -15,6 +15,7 @@ import jv.gerencia_restaurante.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -83,6 +84,12 @@ public class ReservaServiceImpl implements ReservaService {
     public List<ReservaResponseDTO> getReservaPorObservacao(String obs) {
         List<Reserva> reservas = reservaRepository.findAllByObservacaoContainingIgnoreCase(obs);
         return reservas.stream().map(ReservaResponseDTO::new).toList();
+    }
+
+    @Override
+    public BigDecimal getValorTotalReserva(Long id) {
+        BigDecimal total = reservaRepository.findTotalPorReserva(id);
+        return total != null ? total : BigDecimal.ZERO;
     }
 
     private void ValidaAlteracaoStatus(StatusEnum statusEnum, LocalDate dataReserva) {

@@ -10,6 +10,7 @@ import jv.gerencia_restaurante.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -28,9 +29,14 @@ public class MesaServiceImpl implements MesaService {
     @Override
     public MesaResponseDTO cadastraMesa(MesaRequestDTO mesaRequestDTO) {
         Restaurante restaurante = restauranteService.findById(mesaRequestDTO.idRestaurante());
-        Mesa mesa = new Mesa(mesaRequestDTO, restaurante);
+        Mesa mesa = new Mesa(mesaRequestDTO, restaurante, calculaProximoNumeroMesa(restaurante));
         mesaRepository.save(mesa);
         return new MesaResponseDTO(mesa);
+    }
+
+    private Integer calculaProximoNumeroMesa(Restaurante restaurante) {
+        Mesa mesa = mesaRepository.findTopNumeroByRestauranteOrderByNumeroDesc(restaurante).orElse(null);
+        return (mesa != null ? mesa.getNumero() : 0) + 1;
     }
 
     @Override
@@ -48,5 +54,11 @@ public class MesaServiceImpl implements MesaService {
     @Override
     public Mesa findById(Long id) {
         return mesaRepository.findById(id).orElseThrow(() -> new RuntimeException("Id do mesa não encontrado"));
+    }
+
+    @Override
+    public List<MesaResponseDTO> getMesasDisponiveis(Long idRestaurante, LocalDate data, Integer qtdPessoas) {
+        List<Mesa> mesas = mesaRepository.findMesasDisponiveisPorDataEQtdPessoas(idRestaurante, data, qtdPessoas);
+        return mesas.stream().map(MesaResponseDTO::new).toList();
     }
 }

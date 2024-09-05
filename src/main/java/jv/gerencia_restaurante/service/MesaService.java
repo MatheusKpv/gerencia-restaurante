@@ -4,6 +4,7 @@ import jv.gerencia_restaurante.dto.MesaRequestDTO;
 import jv.gerencia_restaurante.dto.MesaResponseDTO;
 import jv.gerencia_restaurante.entity.Mesa;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface MesaService {
@@ -14,4 +15,6 @@ public interface MesaService {
     MesaResponseDTO alteraMesa(Long id, MesaRequestDTO mesaRequestDTO);
 
     Mesa findById(Long id);
+
+    List<MesaResponseDTO> getMesasDisponiveis(Long idRestaurante, LocalDate data, Integer qtdPessoas);
 }
