@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ReservaRepository extends JpaRepository<Reserva, Long> {
+public interface ReservaRepository extends JpaRepository<Reserva, Long>, ReservaRepositoryCustom {
     List<Reserva> findAllByObservacaoContainingIgnoreCase(String obs);
 
     @Query("SELECT SUM(p.valor) FROM reserva r LEFT JOIN r.pedidos p WHERE r.id = :id")

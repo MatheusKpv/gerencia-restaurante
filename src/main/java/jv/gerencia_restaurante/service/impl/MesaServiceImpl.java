@@ -58,7 +58,7 @@ public class MesaServiceImpl implements MesaService {
 
     @Override
     public List<MesaResponseDTO> getMesasDisponiveis(Long idRestaurante, LocalDate data, Integer qtdPessoas) {
-        List<Mesa> mesas = mesaRepository.findMesasDisponiveisPorDataEQtdPessoas(idRestaurante, data, qtdPessoas);
-        return mesas.stream().map(MesaResponseDTO::new).toList();
+        List<MesaResponseDTO> mesas = mesaRepository.findMesasDisponiveisPorDataEQtdPessoas(idRestaurante, data, qtdPessoas);
+        return mesas;
     }
 }

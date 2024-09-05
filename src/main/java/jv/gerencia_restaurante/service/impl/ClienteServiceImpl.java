@@ -76,7 +76,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteResponseDTO getClienteMaiorgasto() {
-        List<Cliente> clientes = clienteRepository.findClientesMaiorGasto();
-        return new ClienteResponseDTO(clientes.stream().findFirst().orElseThrow(() -> new RuntimeException("Nenhum cliente encontrado")));
+        ClienteResponseDTO cliente = clienteRepository.findClienteMaiorGasto();
+        return cliente;
     }
 }
