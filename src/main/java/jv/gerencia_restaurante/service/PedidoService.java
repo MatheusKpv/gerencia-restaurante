@@ -1,10 +1,9 @@
 package jv.gerencia_restaurante.service;
 
-import jv.gerencia_restaurante.dto.ClienteRequestDTO;
-import jv.gerencia_restaurante.dto.ClienteResponseDTO;
-import jv.gerencia_restaurante.dto.PedidoRequestDTO;
-import jv.gerencia_restaurante.dto.PedidoResponseDTO;
+import jv.gerencia_restaurante.dto.*;
 import jv.gerencia_restaurante.entity.Pedido;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -16,4 +15,6 @@ public interface PedidoService {
     PedidoResponseDTO alteraPedido(Long id, PedidoRequestDTO pedidoRequestDTO);
 
     Pedido findById(Long id);
+
+    Page<PedidoResponseDTO> getListaComFiltro(PedidoFiltroDTO pedidoFiltroDTO, Pageable pageable);
 }

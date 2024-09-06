@@ -5,6 +5,7 @@ import jv.gerencia_restaurante.dto.MesaResponseDTO;
 import jv.gerencia_restaurante.dto.MessageErrorDTO;
 import jv.gerencia_restaurante.service.MesaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +29,13 @@ public class MesaController {
     }
 
     @GetMapping("disponiveis")
-    public ResponseEntity<?> getMesasDisponiveis(@RequestParam Long idRestaurante, @RequestParam LocalDate data, @RequestParam Integer qtdPessoas) {
+    public ResponseEntity<?> getMesasDisponiveis(@RequestParam Long idRestaurante,
+                                                 @RequestParam LocalDate data,
+                                                 @RequestParam Integer qtdPessoas,
+                                                 @RequestParam(defaultValue = "0", required = false) Integer pagina,
+                                                 @RequestParam(defaultValue = "10", required = false) Integer size) {
         try {
-            List<MesaResponseDTO> mesas = mesaService.getMesasDisponiveis(idRestaurante, data, qtdPessoas);
+            Page<MesaResponseDTO> mesas = mesaService.getMesasDisponiveis(idRestaurante, data, qtdPessoas, pagina, size);
             return ResponseEntity.ok(mesas);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));

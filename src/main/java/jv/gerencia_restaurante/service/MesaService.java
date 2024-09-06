@@ -3,6 +3,7 @@ package jv.gerencia_restaurante.service;
 import jv.gerencia_restaurante.dto.MesaRequestDTO;
 import jv.gerencia_restaurante.dto.MesaResponseDTO;
 import jv.gerencia_restaurante.entity.Mesa;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,5 +17,5 @@ public interface MesaService {
 
     Mesa findById(Long id);
 
-    List<MesaResponseDTO> getMesasDisponiveis(Long idRestaurante, LocalDate data, Integer qtdPessoas);
+    Page<MesaResponseDTO> getMesasDisponiveis(Long idRestaurante, LocalDate data, Integer qtdPessoas, Integer pagina, Integer size);
 }

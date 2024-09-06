@@ -8,6 +8,9 @@ import jv.gerencia_restaurante.repository.MesaRepository;
 import jv.gerencia_restaurante.service.MesaService;
 import jv.gerencia_restaurante.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -57,8 +60,10 @@ public class MesaServiceImpl implements MesaService {
     }
 
     @Override
-    public List<MesaResponseDTO> getMesasDisponiveis(Long idRestaurante, LocalDate data, Integer qtdPessoas) {
-        List<MesaResponseDTO> mesas = mesaRepository.findMesasDisponiveisPorDataEQtdPessoas(idRestaurante, data, qtdPessoas);
+    public Page<MesaResponseDTO> getMesasDisponiveis(Long idRestaurante, LocalDate data, Integer qtdPessoas,
+                                                     Integer pagina, Integer size) {
+        Pageable pageable = PageRequest.of(pagina, size);
+        Page<MesaResponseDTO> mesas = mesaRepository.findMesasDisponiveisPorDataEQtdPessoas(pageable, idRestaurante, data, qtdPessoas);
         return mesas;
     }
 }
