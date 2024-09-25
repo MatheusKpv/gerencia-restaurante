@@ -1,6 +1,7 @@
 package jv.gerencia_restaurante.controller;
 
 import jv.gerencia_restaurante.dto.*;
+import jv.gerencia_restaurante.entity.Restaurante;
 import jv.gerencia_restaurante.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,16 @@ public class RestauranteController {
         try {
             List<RestauranteResponseDTO> restaurantes = restauranteService.getListaRestaurantes();
             return ResponseEntity.ok(restaurantes);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getRestaurante(@PathVariable Long id) {
+        try {
+            Restaurante restaurante = restauranteService.findById(id);
+            return ResponseEntity.ok(new RestauranteResponseDTO(restaurante));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageErrorDTO(e.getMessage()));
         }
