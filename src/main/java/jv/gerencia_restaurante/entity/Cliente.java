@@ -36,7 +36,7 @@ public class Cliente extends Pessoa{
         super(cliente.nome(), cliente.sobrenome(), cliente.cpf(), cliente.dataNascimento(),
                 cliente.sexo(), cliente.telefone(), restaurante);
         this.dataCadastro = cliente.dataCadastro();
-        this.quantidadeReservas = cliente.quantidadeReservas();
+        this.quantidadeReservas = 0;
         this.quantidadeValorGasto = BigDecimal.ZERO;
         this.flgBloqueado = false;
     }
@@ -57,5 +57,9 @@ public class Cliente extends Pessoa{
 
     public void desbloqueia() {
         this.flgBloqueado = false;
+    }
+
+    public void bloqueia() {
+        this.flgBloqueado = true;
     }
 }

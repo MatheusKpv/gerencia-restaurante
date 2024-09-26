@@ -72,11 +72,22 @@ public class ClienteServiceImpl implements ClienteService {
             throw new RuntimeException("cliente não está bloqueado");
         }
         cliente.desbloqueia();
+        clienteRepository.save(cliente);
     }
 
     @Override
     public ClienteResponseDTO getClienteMaiorgasto() {
         ClienteResponseDTO cliente = clienteRepository.findClienteMaiorGasto();
         return cliente;
+    }
+
+    @Override
+    public void bloqueioCliente(Long id) {
+        Cliente cliente = findById(id);
+        if (cliente.getFlgBloqueado()) {
+            throw new RuntimeException("cliente já está bloqueado");
+        }
+        cliente.bloqueia();
+        clienteRepository.save(cliente);
     }
 }

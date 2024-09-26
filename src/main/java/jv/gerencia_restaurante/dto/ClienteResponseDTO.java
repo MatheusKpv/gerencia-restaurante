@@ -18,11 +18,12 @@ public record ClienteResponseDTO(
         LocalDate dataCadastro,
         Integer quantidadeReservas,
         BigDecimal quantidadeValorGasto,
-        Boolean flgBloqueado
+        Boolean flgBloqueado,
+        Long idRestaurante
 ) {
     public ClienteResponseDTO (Cliente cliente) {
         this(cliente.getId(), cliente.getNome(), cliente.getSobrenome(), cliente.getCpf(), cliente.getDataNascimento(),
                 cliente.getSexo(), cliente.getTelefone(), cliente.getDataCadastro(), cliente.getQuantidadeReservas(),
-                cliente.getQuantidadeValorGasto(), cliente.getFlgBloqueado());
+                cliente.getQuantidadeValorGasto(), cliente.getFlgBloqueado(), cliente.getRestaurante().getId());
     }
 }

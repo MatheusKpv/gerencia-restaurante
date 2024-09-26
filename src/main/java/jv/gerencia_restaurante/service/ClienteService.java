@@ -18,4 +18,6 @@ public interface ClienteService {
     void desbloqueioCliente(Long id);
 
     ClienteResponseDTO getClienteMaiorgasto();
+
+    void bloqueioCliente(Long id);
 }
