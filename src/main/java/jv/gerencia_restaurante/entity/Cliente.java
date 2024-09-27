@@ -35,7 +35,7 @@ public class Cliente extends Pessoa{
     public Cliente(ClienteRequestDTO cliente, Restaurante restaurante) {
         super(cliente.nome(), cliente.sobrenome(), cliente.cpf(), cliente.dataNascimento(),
                 cliente.sexo(), cliente.telefone(), restaurante);
-        this.dataCadastro = cliente.dataCadastro();
+        this.dataCadastro = LocalDate.now();
         this.quantidadeReservas = 0;
         this.quantidadeValorGasto = BigDecimal.ZERO;
         this.flgBloqueado = false;
@@ -44,9 +44,6 @@ public class Cliente extends Pessoa{
     public void alteraDados(ClienteRequestDTO cliente, Restaurante restaurante) {
         super.alteraDados(cliente.nome(), cliente.sobrenome(), cliente.cpf(), cliente.dataNascimento(),
                 cliente.sexo(), cliente.telefone(), restaurante);
-        if (cliente.dataCadastro() != null) {
-            this.dataCadastro = cliente.dataCadastro();
-        }
         if (cliente.quantidadeReservas() != null) {
             this.quantidadeReservas = cliente.quantidadeReservas();
         }
